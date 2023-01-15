@@ -1,0 +1,27 @@
+{
+    "Units" : [
+
+        {
+            "Name" : "Employees",
+            "Scope" : 0
+        },
+
+        {
+            "Name" : "Students",
+            "Scope" : 0
+        },
+
+        {
+            "Name" : "Developers",
+            "Scope" : 1
+        },
+
+        {
+            "Name" : "Lawyers",
+            "Scope" : 2
+        }
+
+    ]
+
+
+}
