@@ -1,21 +1,46 @@
 # Layout
 
-Hosts in the networkdomain
-	- DC1
-		- IP addr : 192.168.2.254/24
-	- DC1 
-		- Ip addr : 192.168.2.253/24
-	- WS1 
-		- Ip addr : 192.168.2.252/24
-	- WS2 
-		- Ip addr : 192.168.2.251/24
-	- WS3 
+Hosts that will be in the domain
+
+- DC1
+	- IP addr : 192.168.2.254/24
+- DC2
+	- Ip addr : 192.168.2.253/24
+- WS1 
+	- Ip addr : 192.168.2.252/24
+- WS2 
+	- Ip addr : 192.168.2.251/24
+- WS3 
 		- Ip addr : 192.168.2.250/24
 
 # Deployment
 
-- Create the first VM of the lab with Windows Server 2022 on it, using the iso file through a virtual CD
-- I'll do everything from that host
+## Initial considerations
+	- Create the first VM of the lab with Windows Server 2022 on it, using the iso file, through a virtual CD
+	- I'll do everything from that host
+	- I'll install Windows Server 2016 on the second VM and then try to upgrade it to Windows Server 2022
+		- Note : before upgrading, you need to install all the updates that are available
+			- To check if there are pending updates, go into settings > updates and security
+	- I'll use [Windows Deployment Services](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/hh831764(v=ws.11)) to automate the deployment phase for every host in the domain
+
+- Create the [answer file](https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/wsim/answer-files-overview)
+	- Download the windows [ADK](https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install) from [here](https://go.microsoft.com/fwlink/?linkid=2162950) 
+		- Select only the deployment tools features 
+	- Open the [Windows System Image Manager](https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/wsim/windows-system-image-manager-technical-reference)
+	- Select a windows image file to add (Note : the iso needs to be mounted)
+		- It's the install.wim file from the ISO drive
+			- It might happen that the install file has the .esd extension instead
+				- It's the encrypted version of the .wim file
+				- To obtain the .wim file use the [DISM tool](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/what-is-dism?view=windows-11)
+					- Create a folder to temporary mount the image file 
+					- Open a cmd as admin and type 
+						```
+						dism /mount-image /imagefile:<path to .esd file> /index:<index number> /mountdir:<path to mount folder>
+
+						dism /export-image /sourceimagefile:<path to .esd file> /sourceindex:<index number> /destinationimagefile:<path to .wim file>
+
+						```
+
 
 # Additional notes
 
