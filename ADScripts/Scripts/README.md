@@ -1,0 +1,1 @@
+Collection of simple scripts used to experiment with Active Directory
